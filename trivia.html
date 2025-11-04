@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+        <script>
+            // تابع برای بررسی سوال چندگزینه‌ای
+            function checkMultipleChoice(selectedButton, isCorrect) {
+                // ابتدا همه دکمه‌ها را به حالت اول برگردان
+                const buttons = document.querySelectorAll('.multiple-choice button');
+                buttons.forEach(button => {
+                    button.style.backgroundColor = '#d9edff';
+                });
+
+                // پیام قبلی را پاک کن
+                const existingMessage = document.querySelector('.multiple-choice .message');
+                if (existingMessage) {
+                    existingMessage.remove();
+                }
+
+                // ایجاد پیام جدید
+                const message = document.createElement('div');
+                message.className = 'message';
+
+                if (isCorrect) {
+                    selectedButton.style.backgroundColor = '#90EE90'; // سبز
+                    message.textContent = 'Correct!';
+                    message.style.color = 'green';
+                } else {
+                    selectedButton.style.backgroundColor = '#FFB6C1'; // قرمز
+                    message.textContent = 'Incorrect!';
+                    message.style.color = 'red';
+                }
+
+                // اضافه کردن پیام به بخش سوال
+                document.querySelector('.multiple-choice').appendChild(message);
+            }
+
+            // تابع برای بررسی سوال متنی
+            function checkFreeResponse() {
+                const input = document.querySelector('.free-response input[type="text"]');
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctAnswer = 'tehran'; // پاسخ صحیح
+
+                // پیام قبلی را پاک کن
+                const existingMessage = document.querySelector('.free-response .message');
+                if (existingMessage) {
+                    existingMessage.remove();
+                }
+
+                // ایجاد پیام جدید
+                const message = document.createElement('div');
+                message.className = 'message';
+
+                if (userAnswer === correctAnswer) {
+                    input.style.backgroundColor = '#90EE90'; // سبز
+                    message.textContent = 'Correct!';
+                    message.style.color = 'green';
+                } else {
+                    input.style.backgroundColor = '#FFB6C1'; // قرمز
+                    message.textContent = 'Incorrect!';
+                    message.style.color = 'red';
+                }
+
+                // اضافه کردن پیام به بخش سوال
+                document.querySelector('.free-response').appendChild(message);
+            }
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+            <div class="section multiple-choice">
+                <h2>Part 1: Multiple Choice </h2>
+                <hr>
+                <!-- سوال چندگزینه‌ای -->
+                <h3>What is the capital of Iran?</h3>
+                <button onclick="checkMultipleChoice(this, false)">Shiraz</button>
+                <button onclick="checkMultipleChoice(this, false)">Isfahan</button>
+                <button onclick="checkMultipleChoice(this, true)">Tehran</button>
+                <button onclick="checkMultipleChoice(this, false)">Mashhad</button>
+            </div>
+
+            <div class="section free-response">
+                <h2>Part 2: Free Response</h2>
+                <hr>
+                <!-- سوال متنی -->
+                <h3>What is the capital of Iran?</h3>
+                <input type="text" placeholder="Enter your answer...">
+                <button onclick="checkFreeResponse()">Submit Answer</button>
+            </div>
+        </div>
+    </body>
+</html>
+
